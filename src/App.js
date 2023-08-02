@@ -2,13 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 function App() {
   const [idChange, setIdChange] = useState("");
-
+  const [btnMessage, setBtnMessage] = useState('회원가입')
   const {
     register,
     handleSubmit,
     setError,
-    getValues,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm();
 
   const onChange = (e) => {
@@ -17,15 +16,17 @@ function App() {
   };
 
   const onSubmit = (data) => {
-    const passwordValue = getValues("password");
-    const passwordChcekValue = getValues("passwordCheck");
     console.log(data);
-    console.log(passwordValue, passwordChcekValue);
-    if (passwordValue !== passwordChcekValue) {
+
+    if (data.password !== data.passwordCheck) {
       setError("passwordValidate", {
         type: "manual",
         message: "비밀번호가 같지 않습니다",
       });
+      setBtnMessage('회원가입')
+    }else{
+      setBtnMessage('회원가입 성공')
+
     }
   };
 
@@ -76,7 +77,7 @@ function App() {
             <p className="text-slate-50">{errors.passwordValidate.message}</p>
           )}
           <button className="p-4 px-9 mt-10 rounded font-slate-50 bg-slate-50">
-            회원가입
+            {btnMessage}
           </button>
         </form>
       </div>

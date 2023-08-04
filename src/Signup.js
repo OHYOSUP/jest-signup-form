@@ -1,11 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { appendErrors, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const [idChange, setIdChange] = useState("");
-  const [signupValidate, setSignupValidate] = useState(false);
   const [passwordValidate, setPasswordValidate] = useState("");
   const {
     register,
@@ -21,21 +20,23 @@ function Signup() {
 
   const onSubmit = (data) => {
     if (data.password !== data.passwordCheck) {
+      alert("비밀번호가 맞지 않습니다");
       setPasswordValidate("비밀번호를 확인하세요");
-    } 
+      return;
+    }
     setPasswordValidate("");
     alert("회원가입에 성공했습니다");
     navigate("/welcome");
   };
 
   return (
-    <div className="w-screen h-screen bg-slate-100 flex flex-col items-center text-center">
-      <div className="w-[50vw] bg-slate-500 mt-[200px] flex justify-center">
+    <div className=" bg-slate-100 flex flex-col justify-center items-center text-center">
+      <div className="w-[50vw] bg-slate-500 mt-[100px] flex justify-center">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-[30vw] flex flex-col items-center justify-center gap-10 py-10"
+          className="w-[30vw] flex flex-col items-center justify-center gap-16 py-10"
         >
-          <label className=" flex flex-col text-center gap-5 text-slate-50 font-bold">
+          <label className="h-[100px] items-center flex flex-col text-center gap-5 text-slate-50 font-bold">
             아이디
             <input
               className="p-3 rounded w-[350px] text-slate-900"
@@ -54,14 +55,14 @@ function Signup() {
               placeholder="이메일을 입력하세요"
               onChange={onChange}
             />
-            {errors.id && <p>{errors.id.message}</p>}
+            {errors.id && <p className="text-[13px]"> {errors.id.message}</p>}
           </label>
-          <label className="flex flex-col text-center  gap-5 text-slate-50 font-bold">
+          <label className="h-[100px] flex flex-col items-center text-center gap-5 text-slate-50 font-bold">
             비밀번호
             <input
               className={
                 errors.password || errors.passwordCheck
-                  ? "p-3 w-[350px] rounded text-slate-900 border border-red-600 border-4 border-rounded"
+                  ? "p-3 w-[350px] rounded text-slate-900 border-red-600 border-4 border-rounded"
                   : "p-3 w-[350px] rounded text-slate-900 border"
               }
               type="password"
@@ -77,9 +78,11 @@ function Signup() {
               })}
               placeholder="비밀번호를 입력하세요"
             />
-            {errors.password && <p>{errors.password.message}</p>}
+            {errors.password && (
+              <p className="text-[13px]">{errors.password.message}</p>
+            )}
           </label>
-          <label className="flex flex-col text-center gap-5 text-slate-50 font-bold">
+          <label className="h-[100px] items-center flex flex-col text-center gap-5 text-slate-50 font-bold">
             비밀번호 확인
             <input
               type="password"

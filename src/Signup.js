@@ -47,6 +47,9 @@ function Signup() {
                   value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
                   message: "이메일 형식을 지켜주세요",
                 },
+                validate: {
+                  noneSpace: value => !value.match(/\s/g) || '이메일에 공백이 있어서는 안됩니다',
+                }
               })}
               type="text"
               placeholder="이메일을 입력하세요"

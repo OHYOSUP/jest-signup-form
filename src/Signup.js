@@ -22,9 +22,7 @@ function Signup() {
   const onSubmit = (data) => {
     if (data.password !== data.passwordCheck) {
       setPasswordValidate("비밀번호를 확인하세요");
-    } else if (!errors) {
-      alert("뭔가 틀렸습니다");
-    }
+    } 
     setPasswordValidate("");
     alert("회원가입에 성공했습니다");
     navigate("/welcome");
@@ -48,8 +46,9 @@ function Signup() {
                   message: "이메일 형식을 지켜주세요",
                 },
                 validate: {
-                  noneSpace: value => !value.match(/\s/g) || '이메일에 공백이 있어서는 안됩니다',
-                }
+                  noneSpace: (value) =>
+                    !value.match(/\s/g) || "이메일에 공백이 있어서는 안됩니다",
+                },
               })}
               type="text"
               placeholder="이메일을 입력하세요"
